@@ -16,25 +16,21 @@ class musicPlayer:
         self.userInteface()
     
     def userInteface(self):
-        audioDetails = Frame(self.window, background="bisque")
+        audioDetails = Frame(self.window)
         audioDetails.grid(row=0, column=0, sticky="nsew")
-        
 
-        hehe = Button(audioDetails, text="details")
-        hehe.grid(row=0, column=0)
-        
-        l1=Label(audioDetails, text="ahahhaha")
-        l1.grid(row=0, column=1)
+        self.canvas = Canvas(audioDetails)
+        self.img = ImageTk.PhotoImage(Image.open("haha.png"))
+        self.canvas.create_image(0, 0, image=self.img)
+        self.canvas.grid(row=0, column=0, sticky="nsew")
 
-        audioDetails.grid_columnconfigure(0, weight=5)
-        audioDetails.grid_columnconfigure(1, weight=1)
+        audioDetails.grid_columnconfigure(0, weight=1)
         audioDetails.grid_rowconfigure(0, weight=1)
 
-        playlist = Frame(self.window, background="pink")
+        playlist = Frame(self.window)
         playlist.grid(row=0, column=1, sticky="nsew")
 
-
-        self.playlistList = Listbox(playlist, selectmode=SINGLE)
+        self.playlistList = Listbox(playlist, selectmode=SINGLE, background="bisque")
         self.playlistList.grid(row=0, column=0, sticky="nsew")
 
         os.chdir("/media/anupam/Local Disk1/Music/new/Music files/edm")
@@ -44,11 +40,6 @@ class musicPlayer:
 
         playlist.grid_columnconfigure(0, weight=1)
         playlist.grid_rowconfigure(0, weight=1)
-
-        # play button
-        # playButton = Button(self.window, text="Play", width=30)
-        # playButton.configure(command=self.playSong)
-        # playButton.grid(row=1, column=0, sticky="nsew")
 
         # pause button
         self.pauseButton = Button(self.window, text="Pause", padx=40, pady=20)
