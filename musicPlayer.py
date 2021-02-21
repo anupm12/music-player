@@ -1,16 +1,19 @@
-from tkinter import * 
-import tkinter
-import pygame
-from PIL import ImageTk,Image 
 import os
+import tkinter
+from tkinter import *
+
+from PIL import Image, ImageTk
+import vlc
+import time
 
 window = Tk()
 window.geometry("1000x500+200+100")
 
 class musicPlayer:
-    pygame.init()
 
     def __init__(self, window):
+        self.vlc_instance = vlc.Instance()
+        self.player = self.vlc_instance.media_player_new()
         self.window = window
         self.window.title("MusicPlayer")
         self.window.configure(background='#4A4A4A')
@@ -43,14 +46,14 @@ class musicPlayer:
         self.playlistList.bind('<Double-1>', self.playSong) 
         self.playlistList.grid(row=0, column=0, sticky="nsew")
 
-        # os.chdir("/media/anupam/Local Disk1/Music/new/Music files/edm")
-        os.chdir("/media/anupam/Local Disk/Projects/Projects/music player")
+        os.chdir("/media/anupam/Local Disk1/Music/new/Music files/edm")
+        # os.chdir("/media/anupam/Local Disk/Projects/Projects/music player")
         songtracks = os.listdir()
         for track in songtracks:
             self.playlistList.insert(END,track)
 
         playlist.grid_columnconfigure(0, weight=1)
-        playlist.grid_rowconfigure(0, weight=1)        
+        playlist.grid_rowconfigure(0, weight=1)
 
         # pause button
         self.pauseButton = Button(self.window, image=self.pauseIcon, bg="#4A4A4A", bd=0, highlightthickness=0)
@@ -69,24 +72,24 @@ class musicPlayer:
 
     def playSong(self, event):
         self.audioName.config(text=self.playlistList.get(ACTIVE))
-        pygame.mixer.music.load(self.playlistList.get(ACTIVE))
-        pygame.mixer.music.set_volume(1.0)
         self.tracker=TRUE
-        pygame.mixer.music.play()
+        media = self.vlc_instance.media_new(self.playlistList.get(ACTIVE))
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(0.5)
     
     def pauseSong(self):
         if(self.tracker):
-            pygame.mixer.music.pause()
+            self.player.pause()
             self.pauseButton.configure(image=self.playIcon)
             self.tracker=FALSE
         else:
-            pygame.mixer.music.unpause()
+            self.player.play()
             self.pauseButton.configure(image=self.pauseIcon)
             self.tracker=TRUE
 
     def stopSong(self):
-        pygame.mixer.music.stop()
-    
+        self.player.stop()
 
 musicPlayer(window)
 window.mainloop()
