@@ -18,15 +18,15 @@ class musicPlayer:
         self.userInteface()
     
     def userInteface(self):
-        self.playIcon = ImageTk.PhotoImage(Image.open("play-button.png"))
-        self.pauseIcon = ImageTk.PhotoImage(Image.open("pause.png"))
-        self.stopIcon = ImageTk.PhotoImage(Image.open("stop.png"))
+        self.playIcon = ImageTk.PhotoImage(Image.open("Resources/Icons/play.png"))
+        self.pauseIcon = ImageTk.PhotoImage(Image.open("Resources/Icons/pause.png"))
+        self.stopIcon = ImageTk.PhotoImage(Image.open("Resources/Icons/stop.png"))
 
         audioDetails = Frame(self.window, bg="#4A4A4A", bd=10)
         audioDetails.grid(row=0, column=0, sticky="nsew")
 
         self.canvas = Canvas(audioDetails, bd=0, highlightthickness=0)
-        self.image = ImageTk.PhotoImage(Image.open("bg.jpg"))
+        self.image = ImageTk.PhotoImage(Image.open("Resources/Images/bg.jpg"))
         self.canvas.create_image(0, 0, image=self.image)
         self.canvas.grid(row=0, column=0, sticky="nsew")
 
