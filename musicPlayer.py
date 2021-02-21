@@ -71,9 +71,10 @@ class musicPlayer:
         self.window.grid_rowconfigure(1, weight=1)
 
     def playSong(self, event):
-        self.audioName.config(text=self.playlistList.get(ACTIVE))
+        songName = self.playlistList.get(ACTIVE)
+        self.audioName.config(text = songName[0:-4])
         self.tracker=TRUE
-        media = self.vlc_instance.media_new(self.playlistList.get(ACTIVE))
+        media = self.vlc_instance.media_new(songName)
         self.player.set_media(media)
         self.player.play()
         time.sleep(0.5)
