@@ -12,6 +12,8 @@ window.geometry("1000x500+200+100")
 class musicPlayer:
 
     def __init__(self, window):
+        self.folderLocation=""
+
         self.vlc_instance = vlc.Instance()
         self.player = self.vlc_instance.media_player_new()
         self.window = window
@@ -46,8 +48,7 @@ class musicPlayer:
         self.playlistList.bind('<Double-1>', self.playSong) 
         self.playlistList.grid(row=0, column=0, sticky="nsew")
 
-        os.chdir("/media/anupam/Local Disk1/Music/new/Music files/edm")
-        # os.chdir("/media/anupam/Local Disk/Projects/Projects/music player")
+        os.chdir(self.folderLocation)
         songtracks = os.listdir()
         for track in songtracks:
             self.playlistList.insert(END,track)
